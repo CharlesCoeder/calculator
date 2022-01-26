@@ -11,6 +11,10 @@ function multiply(num1, num2){
 }
 
 function divide(num1, num2){
+    if (num2 == 0){
+        alert('Cannot divide by zero!');
+        return null;
+    }
     return num1 / num2;
 }
 
@@ -61,6 +65,8 @@ equals.addEventListener('click', () => {
     temp = operate(currentOperator, num1, num2);
     if (temp){
         displayValue = temp;
+        num1 = temp;
+        num2 = null;
     }
     updateDisplay(displayValue);
 })
@@ -70,8 +76,21 @@ let currentOperator;
 const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
-        currentOperator = operator.className.split(" ")[0];
-        displayValue = '';
+        if (!num2){
+            currentOperator = operator.className.split(" ")[0];
+            displayValue = '';
+        }
+        else {
+            temp = operate(currentOperator, num1, num2);
+            if (temp){
+                displayValue = temp;
+                num1 = temp;
+                num2 = null;
+            }
+            updateDisplay(displayValue);
+            currentOperator = operator.className.split(" ")[0];
+            displayValue = '';
+        }
     });
 });
 
