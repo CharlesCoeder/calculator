@@ -33,18 +33,18 @@ function operate(operator, num1, num2){
     }
     else {
         return null;
-    }    
+    }
 }
 
-display = document.querySelector('.display');
 let displayValue = "";
-
-function updateDisplay(){
-    display.textContent = displayValue;
-}
-
 let num1;
 let num2;
+let currentOperator;
+
+display = document.querySelector('.display');
+function updateDisplay(){
+    display.textContent = displayValue;
+};
 
 const digits = document.querySelectorAll('.digit');
 digits.forEach(digit => {
@@ -60,8 +60,7 @@ digits.forEach(digit => {
     });
 });
 
-const equals = document.querySelector('.equals');
-equals.addEventListener('click', () => {
+function equate(){
     temp = operate(currentOperator, num1, num2);
     if (temp){
         displayValue = temp;
@@ -69,28 +68,19 @@ equals.addEventListener('click', () => {
         num2 = null;
     }
     updateDisplay(displayValue);
-})
+};
 
-let currentOperator;
+const equals = document.querySelector('.equals');
+equals.addEventListener('click', equate);
 
 const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
-        if (!num2){
-            currentOperator = operator.className.split(" ")[0];
-            displayValue = '';
+        if (num2){
+            equate();
         }
-        else {
-            temp = operate(currentOperator, num1, num2);
-            if (temp){
-                displayValue = temp;
-                num1 = temp;
-                num2 = null;
-            }
-            updateDisplay(displayValue);
-            currentOperator = operator.className.split(" ")[0];
-            displayValue = '';
-        }
+        currentOperator = operator.className.split(" ")[0];
+        displayValue = '';
     });
 });
 
