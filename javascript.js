@@ -58,7 +58,10 @@ digits.forEach(digit => {
 
 const equals = document.querySelector('.equals');
 equals.addEventListener('click', () => {
-    displayValue = operate(currentOperator, num1, num2);
+    temp = operate(currentOperator, num1, num2);
+    if (temp){
+        displayValue = temp;
+    }
     updateDisplay(displayValue);
 })
 
@@ -69,10 +72,15 @@ operators.forEach(operator => {
     operator.addEventListener('click', () => {
         currentOperator = operator.className.split(" ")[0];
         displayValue = '';
-    })
-    // temp = displayValue
-    // wait for second number to be entered
-    // operate(operator, temp, new)
-    // displayvalue = ""
-    // temp = ""
-})
+    });
+});
+
+const clear = document.querySelector('.clear')
+clear.addEventListener('click', () => {
+    currentOperator = null;
+    num1 = null;
+    num2 = null;
+    displayValue = '0';
+    updateDisplay();
+    displayValue = '';
+});
