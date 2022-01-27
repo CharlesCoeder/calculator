@@ -66,8 +66,8 @@ function equate(){
         displayValue = temp;
         num1 = temp;
         num2 = null;
+        updateDisplay(displayValue);
     }
-    updateDisplay(displayValue);
 };
 
 const equals = document.querySelector('.equals');
@@ -76,6 +76,9 @@ equals.addEventListener('click', equate);
 const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => {
     operator.addEventListener('click', () => {
+        if (!num1){
+            return;
+        }
         if (num2){
             equate();
         }
